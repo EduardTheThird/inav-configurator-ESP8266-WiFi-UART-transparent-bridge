@@ -1,5 +1,5 @@
 
-# ESP8266-WiFi-UART-transparent-bridge
+#inav-configurator ESP8266-WiFi-UART-transparent-bridge
 Transparent serial communication sketch in Arduino IDE.  
 
 Is anyone interested in serial communication over the internet?  
