@@ -6,7 +6,12 @@
 //******************************************************************************
 
 #include <ESP8266WiFi.h>
-#include "config.h"
+
+const char* ssid = "your-wifi-ssid";
+const char* password = "your-wifi-password";
+const int networkport = 23;
+const int baudrate = 57600;
+
 
 //#define STATIC_IP_ADDR
 
@@ -56,6 +61,7 @@ void loop() {
   //check a client for data
   if (localClient && localClient.connected()){
     if(localClient.available()){
+      Serial.print("Client available ");
       size_t len = localClient.available();
       uint8_t sbuf[len];
       localClient.readBytes(sbuf, len);
@@ -65,6 +71,7 @@ void loop() {
 
   //check UART for data
   if(Serial.available()){
+    Serial.print("Serial available ");
     size_t len = Serial.available();
     uint8_t sbuf[len];
     Serial.readBytes(sbuf, len);
