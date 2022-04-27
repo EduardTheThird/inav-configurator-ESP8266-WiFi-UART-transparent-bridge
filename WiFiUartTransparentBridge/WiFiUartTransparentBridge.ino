@@ -1,8 +1,5 @@
 //******************************************************************************
 // WiFiUartTransparentBridge
-// Version 1.1.0
-// Note
-// This sketch is based on "WiFiTelnetToSerial - Example Transparent UART to Telnet Server for esp8266"
 //******************************************************************************
 
 #include <ESP8266WiFi.h>
@@ -12,24 +9,14 @@ const char* password = "your-wifi-password";
 const int networkport = 23;
 const int baudrate = 57600;
 
-
-//#define STATIC_IP_ADDR
-
 WiFiServer localServer(networkport);
 WiFiClient localClient;
 
-#ifdef STATIC_IP_ADDR
-IPAddress staticIP(192,168,0,25);
-IPAddress gateway(192,168,0,1);
-IPAddress subnet(255,255,255,0);
-#endif
-
 void setup() {
+  //give FC some time to boot-up
+  delay(1000);
   Serial.begin(baudrate);
   WiFi.begin(ssid, password);
-#ifdef STATIC_IP_ADDR
-  WiFi.config(staticIP, gateway, subnet);
-#endif
   Serial.print("\nConnecting to "); Serial.println(ssid);
   
   uint8_t i = 0;
@@ -61,7 +48,7 @@ void loop() {
   //check a client for data
   if (localClient && localClient.connected()){
     if(localClient.available()){
-      Serial.print("Client available ");
+      Serial.println("Client available ");
       size_t len = localClient.available();
       uint8_t sbuf[len];
       localClient.readBytes(sbuf, len);
@@ -71,7 +58,7 @@ void loop() {
 
   //check UART for data
   if(Serial.available()){
-    Serial.print("Serial available ");
+    Serial.println("Serial available ");
     size_t len = Serial.available();
     uint8_t sbuf[len];
     Serial.readBytes(sbuf, len);
